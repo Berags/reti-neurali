@@ -1,37 +1,22 @@
-## Welcome to GitHub Pages
+## Benvenuti
 
-You can use the [editor on GitHub](https://github.com/Berags/reti-neurali/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Pagina principale dei progetti in python riguardanti la creazione di reti neurali.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Progetti
 
-### Markdown
+Lista dei progetti attualmente presenti.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Modello associativo
 
-```markdown
-Syntax highlighted code block
+Il [modello associativo](https://github.com/Berags/reti-neurali/tree/main/modello_associativo) è il processo per cui qualcuno apprende un'associazione tra due stimoli, o un comportamento e uno stimolo. Le due forme di apprendimento associativo sono condizionamento classico e condizionamento operante. Nel primo, uno stimolo precedentemente neutro è ripetutamente presentato insieme a un riflesso che susciti stimoli, fino a che lo stimolo neutro provoca una risposta da solo. Nel condizionamento operante, un certo comportamento è rinforzato o punito, ciò altera la probabilità che il comportamento si ripresenterà.
 
-# Header 1
-## Header 2
-### Header 3
+### Regola di Hebb
 
-- Bulleted
-- List
+La [Regola di Hebb](https://github.com/Berags/reti-neurali/tree/main/regola_di_hebb) è un modello formale di apprendimento elaborato dallo psicologo americano Donald O. Hebb negli anni Quaranta del secolo scorso, per cui l’apprendimento è spiegabile secondo tre ipotesi, ciascuna delle quali ha col tempo ricevuto adeguate conferme sperimentali. La prima ipotesi è che i neuroni corticali rafforzino le loro connessioni quando risultano con frequenza attivi contemporaneamente. Questo principio di apprendimento associativo sembra essere valido per la maggioranza dei neuroni corticali; a esso si fa comunemente riferimento, appunto, come regola di Hebb. La seconda ipotesi è che la corteccia sia un’enorme memoria associativa in cui il rafforzamento delle sinapsi abbia luogo non solo tra neuroni vicini, ma anche tra neuroni in aree corticali distanti. Questa seconda ipotesi trae sostegno dagli studi neuroanatomici che evidenziano percorsi cortico - corticali tra molte aree della corteccia. Secondo la terza ipotesi, la contemporanea e frequente attivazione di un gruppo di neuroni che dà luogo al rafforzamento sinaptico ha conseguenze funzionali importanti. I neuroni fortemente connessi probabilmente agiscono insieme, come un’unità funzionale. Se vengono attivati solo alcuni dei neuroni, si attiverà l’intero gruppo, a causa delle forti connessioni tra i membri del gruppo stesso.
 
-1. Numbered
-2. List
+## Tecnologie utilizzate
 
-**Bold** and _Italic_ and `Code` text
+Il linguaggio di programmazione scelto è: Python3
+Librerie utilizzate: NumPy, Array
 
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Berags/reti-neurali/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Non è esclusa una futura trasposizione del programma in un sito web scritto in NodeJs e React.
