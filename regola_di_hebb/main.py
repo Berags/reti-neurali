@@ -5,14 +5,22 @@ VROWS = 4
 MROWS = 4
 COLS = 4
 
-# Metodo per la stampa della matrice
+
 def print2darray(a):
-    print("\n".join(["".join(["{:4}".format(item) for item in row]) for row in a]))
+    '''
+    Metodo per la stampa della matrice 4x4
+    '''
+    print("\n".join(["".join(["{:4}".format(item)
+                              for item in row]) for row in a]))
     return
 
 
-# Carica un vettore o una matrice da file esterno
 def load(file_name):
+    '''
+    Legge una matrice o un vettore dal file (file_name).
+    Ritorna una matrice o un vettore con gli elementi
+    appena letti.
+    '''
     with open(file_name) as f:
         array = []
         for line in f:  # read rest of lines
@@ -26,7 +34,7 @@ print("Lettura da file...")
 # inizializzazione array m con tutti i valori a 0
 m = np.array([[0 for x in range(VROWS)] for y in range(COLS)])
 
-# lamb = float(input())  # Richiede lambda all'utente !!! INUTILIZZATO !!!
+lamb = float(input())  # Richiede lambda all'utente !!! INUTILIZZATO !!!
 # Lettura valori da file
 data_in = np.array(load("input_data.txt"))
 data_out = np.array(load("output_data.txt"))
