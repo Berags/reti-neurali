@@ -18,6 +18,6 @@ La [Regola di Hebb](https://github.com/Berags/reti-neurali/tree/main/regola_di_h
 
 Il linguaggio di programmazione scelto è: Python3
 
-Librerie utilizzate: NumPy, Array
+Librerie utilizzate: NumPy, Array, Matplotlib
 
 Non è esclusa una futura trasposizione del programma in un sito web scritto in NodeJs e React.
