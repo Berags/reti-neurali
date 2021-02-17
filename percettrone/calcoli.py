@@ -49,9 +49,12 @@ markers = []                                # Stile della stampa
 
 # Addestriamo la rete neurale
 for i in range(len(data_input)):
-    x = [1, data_input[i][0], data_input[i][1]] # Inizializziamo i valori di x con i dati letti da file
-    a = calcola_attivazione(w, x)               # Calcoliamo la somma pesata
-    attivazione = viene_attivato(a)             # Verifichiamo il valore della somma pesata
+    # Inizializziamo i valori di x con i dati letti da file
+    x = [1, data_input[i][0], data_input[i][1]] 
+    # Calcoliamo la somma pesata
+    a = calcola_attivazione(w, x)
+    # Verifichiamo il valore della somma pesata
+    attivazione = viene_attivato(a)
     markers.append("*")
     out = data_out[i].item()
     for j in range(VROWS + 1):
@@ -68,4 +71,5 @@ for i in range(len(data_test)):
     markers.append("o")
     da_stamparex.append(x[1])
     da_stamparey.append(x[2])
+
 gr.stampa_grafico(da_stamparex, da_stamparey, markers, w, "\n* = valori di addestramento\no = valori di test")
