@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+</head>
+
+<body class="container-fluid">
+    <div class="h1 text-center">Teachable Machine - Bass Recognition</div>
+    <div class="container">
+        Questa intelligenza artificiale è stata addestrata per riconoscere
+        il diverso stile di suonare un basso elettrico.
+        <br>
+        Durante l'addestramento sono state utilizzate 3 classi:
+        <ul class="list-group">
+            <li class="list-group-item">
+                - <b>Background noise</b>, utilizzato per addestrare la rete al rumore di fondo.
+                (<a href="https://www.youtube.com/watch?v=4vIQON2fDWM">Esempio</a>)
+            </li>
+            <li class="list-group-item">- <b>Fingerstyle</b>, lo stile classico. (<a
+                    href="https://www.youtube.com/watch?v=PE6HmArln_k">Esempio</a>)</li>
+            <li class="list-group-item">- <b>Slap</b>, uno stile molto più moderno, utilizzato soprattuto nel funky e
+                nel
+                blues. (<a href="https://www.youtube.com/watch?v=RTthLmEYLbg">Esempio</a>)</li>
+        </ul>
+    </div>
+    <br><br><br>
+    <div class="text-center">
+        <div>Per avviare il riconoscimento premere il pulsante avvia.</div>
+        <br>
+        <button type="button" onclick="init()" class="btn btn-success">Avvia</button>
+        <br><br>
+        <div id="label-container"></div>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.4.0/dist/speech-commands.min.js"></script>
+
+        <script type="text/javascript">
+            // more documentation available at
+            // https://github.com/tensorflow/tfjs-models/tree/master/speech-commands
+
+            // the link to your model provided by Teachable Machine export panel
+            const URL = "https://teachablemachine.withgoogle.com/models/2I3CAujEp/";
+
+            const createModel = async () => {
+                const checkpointURL = URL + "model.json"; // model topology
+                const metadataURL = URL + "metadata.json"; // model metadata
+
+                const recognizer = speechCommands.create(
+                    "BROWSER_FFT", // fourier transform type, not useful to change
+                    undefined, // speech commands vocabulary feature, not useful for your models
+                    checkpointURL,
+                    metadataURL);
+
+                // check that model and metadata are loaded via HTTPS requests.
+                await recognizer.ensureModelLoaded();
+
+                return recognizer;
+            }
+
+            const init = async () => {
+                const recognizer = await createModel();
+                const classLabels = recognizer.wordLabels(); // get class labels
+                const labelContainer = document.getElementById("label-container");
+                for (let i = 0; i < classLabels.length; i++) {
+                    labelContainer.appendChild(document.createElement("div"));
+                }
+
+                // listen() takes two arguments:
+                // 1. A callback function that is invoked anytime a word is recognized.
+                // 2. A configuration object with adjustable fields
+                recognizer.listen(result => {
+                    const scores = result.scores; // probability of prediction for each class
+                    // render the probability scores per class
+                    for (let i = 0; i < classLabels.length; i++) {
+                        const classPrediction = classLabels[i] + ": " + result.scores[i].toFixed(2);
+                        labelContainer.childNodes[i].innerHTML = classPrediction;
+                    }
+                }, {
+                    includeSpectrogram: true, // in case listen should return result.spectrogram
+                    probabilityThreshold: 0.75,
+                    invokeCallbackOnNoiseAndUnknown: true,
+                    overlapFactor: 0.50 // probably want between 0.5 and 0.75. More info in README
+                });
+
+                // Stop the recognition in 5 seconds.
+                // setTimeout(() => recognizer.stopListening(), 5000);
+            }
+        </script>
+    </div>
+    <script>
+        let visibile = false;
+        const mostramodello = () => {
+            document.getElementById("modellojson").innerHTML = "";
+            if (!visibile) {
+                fetch("https://teachablemachine.withgoogle.com/models/2I3CAujEp/model.json")
+                    .then((res) => res.json())
+                    .then((res) => {
+                        document.getElementById("modellojson").innerHTML = JSON.stringify(res, null, 2);
+                    });
+            }
+            visibile = !visibile;
+        }
+    </script>
+    <br><br>
+    <div>Per visualizzare la rete neurale sotto formato JSON (Javascript Object Notation) è sufficiente cliccare il
+        pulsante "Mostra modello JSON".</div>
+    <button onclick="mostramodello()" class="btn btn-primary">Mostra modello JSON</button>
+    <pre id="modellojson" class="container">
+    </pre>
+</body>
+
+</html>
